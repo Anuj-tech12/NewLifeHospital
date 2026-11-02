@@ -1,0 +1,130 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - NewLifeHospital</title>
+
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet"
+          href="~/css/site.css"
+          asp-append-version="true" />
+
+    <link rel="stylesheet"
+          href="~/NewLifeHospital.styles.css"
+          asp-append-version="true" />
+</head>
+
+<body>
+
+    <!-- NAVBAR START -->
+    <header>
+        <nav class="hospital-navbar">
+            <div class="hospital-nav-container">
+
+                <a class="hospital-brand"
+                   asp-controller="Home"
+                   asp-action="Index">
+
+                    <span class="brand-icon">✚</span>
+
+                    <span class="brand-text">
+                        <strong>NewLife Hospital</strong>
+                        <small>SUPER SPECIALITY CARE</small>
+                    </span>
+                </a>
+
+                <button class="hospital-menu-toggle"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#hospitalNavbar"
+                        aria-controls="hospitalNavbar"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <div class="collapse navbar-collapse"
+                     id="hospitalNavbar">
+
+                    <ul class="hospital-nav-links">
+
+                        <li>
+                            <a asp-controller="Home"
+                               asp-action="Index">Home</a>
+                        </li>
+
+                        <li>
+                            <a asp-controller="Home"
+                               asp-action="About">About Us</a>
+                        </li>
+
+                        <li>
+                            <a asp-controller="Doctors"
+                               asp-action="Index">Doctors</a>
+                        </li>
+
+                        <li>
+                            <a asp-controller="Services"
+                               asp-action="Index">Services</a>
+                        </li>
+
+                        <li>
+                            <a asp-controller="Home"
+                               asp-action="Contact">Contact</a>
+                        </li>
+
+                    </ul>
+
+                    <a class="nav-appointment-btn"
+                       asp-controller="Appointment"
+                       asp-action="Index">
+                        Book Appointment <span>→</span>
+                    </a>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- NAVBAR END -->
+
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <!-- FOOTER START -->
+    <footer class="hospital-footer">
+        <div class="footer-inner">
+
+            <div>
+                <h3>NewLife Hospital</h3>
+                <p>
+                    Compassionate care for a healthier tomorrow.
+                </p>
+            </div>
+
+            <div class="footer-copyright">
+                &copy; @DateTime.Now.Year NewLife Hospital.
+                All rights reserved.
+            </div>
+
+        </div>
+    </footer>
+    <!-- FOOTER END -->
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>
+```

@@ -1,0 +1,207 @@
+﻿@{
+ViewData["Title"] = "Book Appointment";
+}
+
+<style>
+    .appointment-section {
+        background: linear-gradient(135deg, #eaf7ff, #f5f9ff);
+        padding: 60px 20px;
+        min-height: 80vh;
+    }
+
+    .appointment-container {
+        max-width: 850px;
+        margin: auto;
+        background: #fff;
+        padding: 40px;
+        border-radius: 18px;
+        box-shadow: 0 10px 35px rgba(0, 70, 120, 0.12);
+    }
+
+    .appointment-heading {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .appointment-heading h1 {
+        color: #087fbd;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .appointment-heading p {
+        color: #64748b;
+    }
+
+    .appointment-form label {
+        font-weight: 600;
+        color: #334155;
+        margin-bottom: 7px;
+    }
+
+    .appointment-form .form-control,
+    .appointment-form .form-select {
+        min-height: 48px;
+        border: 1px solid #dbe4ee;
+        border-radius: 9px;
+        margin-bottom: 18px;
+    }
+
+    .appointment-form .form-control:focus,
+    .appointment-form .form-select:focus {
+        border-color: #0891b2;
+        box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.12);
+    }
+
+    .appointment-form textarea.form-control {
+        min-height: 120px;
+        resize: vertical;
+    }
+
+    .appointment-submit {
+        width: 100%;
+        border: none;
+        border-radius: 9px;
+        padding: 14px;
+        color: #fff;
+        background: #087fbd;
+        font-size: 17px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .appointment-submit:hover {
+        background: #056493;
+        transform: translateY(-2px);
+    }
+
+    .appointment-note {
+        text-align: center;
+        font-size: 13px;
+        color: #64748b;
+        margin-top: 18px;
+    }
+
+    @@media (max-width: 576px) {
+        .appointment-section {
+            padding: 30px 12px;
+        }
+
+        .appointment-container {
+            padding: 24px 18px;
+        }
+    }
+</style>
+
+<section class="appointment-section">
+    <div class="appointment-container">
+
+
+    <div class="appointment-heading">
+        <h1>Book an Appointment</h1>
+        <p>Schedule your visit with our medical team.</p>
+    </div>
+
+    <form class="appointment-form"
+          asp-controller="Appointment"
+          asp-action="Index"
+          method="post">
+
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="col-md-6">
+                <label for="PatientName">Patient Name *</label>
+                <input type="text"
+                       id="PatientName"
+                       name="PatientName"
+                       class="form-control"
+                       placeholder="Enter patient name"
+                       required
+                       maxlength="100" />
+            </div>
+
+            <div class="col-md-6">
+                <label for="Phone">Phone Number *</label>
+                <input type="tel"
+                       id="Phone"
+                       name="Phone"
+                       class="form-control"
+                       placeholder="Enter phone number"
+                       required
+                       maxlength="20" />
+            </div>
+
+            <div class="col-md-6">
+                <label for="Email">Email Address</label>
+                <input type="email"
+                       id="Email"
+                       name="Email"
+                       class="form-control"
+                       placeholder="Enter email address"
+                       maxlength="150" />
+            </div>
+
+            <div class="col-md-6">
+                <label for="Doctor">Select Doctor *</label>
+                <select id="Doctor" name="Doctor" class="form-select" required>
+                    <option value="">Choose a doctor</option>
+                    <option value="General Physician">General Physician</option>
+                    <option value="Pediatrician">Pediatrician</option>
+                    <option value="Cardiologist">Cardiologist</option>
+                    <option value="Orthopedic Specialist">Orthopedic Specialist</option>
+                    <option value="Gynecologist">Gynecologist</option>
+                    <option value="Other">Other Specialist</option>
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label for="AppointmentDate">Appointment Date *</label>
+                <input type="date"
+                       id="AppointmentDate"
+                       name="AppointmentDate"
+                       class="form-control"
+                       min="@DateTime.Today.ToString("yyyy-MM-dd")"
+                       required />
+            </div>
+
+            <div class="col-md-6">
+                <label for="AppointmentTime">Preferred Time *</label>
+                <select id="AppointmentTime"
+                        name="AppointmentTime"
+                        class="form-select"
+                        required>
+                    <option value="">Choose a time</option>
+                    <option value="09:00 AM">09:00 AM</option>
+                    <option value="10:00 AM">10:00 AM</option>
+                    <option value="11:00 AM">11:00 AM</option>
+                    <option value="12:00 PM">12:00 PM</option>
+                    <option value="02:00 PM">02:00 PM</option>
+                    <option value="03:00 PM">03:00 PM</option>
+                    <option value="04:00 PM">04:00 PM</option>
+                </select>
+            </div>
+
+            <div class="col-12">
+                <label for="Message">Additional Information</label>
+                <textarea id="Message"
+                          name="Message"
+                          class="form-control"
+                          placeholder="Briefly describe your concern (optional)"
+                          maxlength="1000"></textarea>
+            </div>
+        </div>
+
+        <button type="submit" class="appointment-submit">
+            Request Appointment
+        </button>
+
+        <p class="appointment-note">
+            Your appointment is not confirmed until hospital staff contacts you.
+        </p>
+    </form>
+
+</div>
+
+
+</section>

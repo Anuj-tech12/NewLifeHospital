@@ -1,0 +1,111 @@
+﻿@{
+ViewData["Title"] = "Appointment Request";
+}
+
+<style>
+    .confirmation-section {
+        min-height: 70vh;
+        padding: 70px 20px;
+        background: linear-gradient(135deg, #eaf7ff, #f5f9ff);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .confirmation-card {
+        width: 100%;
+        max-width: 650px;
+        background: #fff;
+        border-radius: 20px;
+        padding: 45px 30px;
+        text-align: center;
+        box-shadow: 0 12px 35px rgba(0, 70, 120, 0.12);
+    }
+
+    .confirmation-icon {
+        width: 75px;
+        height: 75px;
+        margin: 0 auto 22px;
+        border-radius: 50%;
+        background: #dcfce7;
+        color: #15803d;
+        font-size: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .confirmation-card h1 {
+        color: #087fbd;
+        font-weight: 700;
+        margin-bottom: 15px;
+    }
+
+    .confirmation-card p {
+        color: #475569;
+        line-height: 1.7;
+    }
+
+    .confirmation-details {
+        margin: 25px 0;
+        padding: 20px;
+        background: #f8fafc;
+        border-radius: 12px;
+        text-align: left;
+    }
+
+    .confirmation-details p {
+        margin: 8px 0;
+    }
+
+    .confirmation-button {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 13px 25px;
+        border-radius: 9px;
+        background: #087fbd;
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .confirmation-button:hover {
+        background: #056493;
+        color: white;
+    }
+</style>
+
+<section class="confirmation-section">
+    <div class="confirmation-card">
+
+
+    <div class="confirmation-icon">✓</div>
+
+    <h1>Thank You, @ViewBag.PatientName!</h1>
+
+    <p>
+        Your appointment request has been received by the website.
+    </p>
+
+    <div class="confirmation-details">
+        <p><strong>Patient Name:</strong> @ViewBag.PatientName</p>
+        <p><strong>Doctor:</strong> @ViewBag.Doctor</p>
+        <p><strong>Date:</strong> @ViewBag.AppointmentDate</p>
+        <p><strong>Preferred Time:</strong> @ViewBag.AppointmentTime</p>
+    </div>
+
+    <p>
+        Please wait for hospital staff to contact you and confirm
+        your appointment.
+    </p>
+
+    <a asp-controller="Home"
+       asp-action="Index"
+       class="confirmation-button">
+        Back to Home
+    </a>
+
+</div>
+
+
+</section>

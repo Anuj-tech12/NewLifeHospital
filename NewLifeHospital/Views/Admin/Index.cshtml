@@ -1,0 +1,155 @@
+﻿@model IEnumerable<NewLifeHospital.Models.Appointment>
+
+@{
+ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container-fluid py-4">
+
+
+<h2 class="mb-4">Hospital Admin Dashboard</h2>
+
+<!-- Dashboard Statistics -->
+<div class="row mb-4">
+
+    <div class="col-md-4 mb-3">
+        <div class="card shadow-sm p-3 border-primary">
+            <h5>Total Appointments</h5>
+            <h2>@Model.Count()</h2>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="card shadow-sm p-3 border-warning">
+            <h5>Pending Appointments</h5>
+            <h2>@Model.Count(a => a.Status == "Pending")</h2>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="card shadow-sm p-3 border-success">
+            <h5>Approved Appointments</h5>
+            <h2>@Model.Count(a => a.Status == "Approved")</h2>
+        </div>
+    </div>
+
+</div>
+
+<!-- All Appointments Table -->
+<div class="card shadow-sm">
+
+    <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">All Patient Appointments</h4>
+    </div>
+
+    <div class="card-body table-responsive">
+
+        <table class="table table-bordered table-hover align-middle">
+
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Patient Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Doctor</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var appointment in Model)
+                {
+                    <tr>
+                        <td>@appointment.Id</td>
+
+                        <td>@appointment.PatientName</td>
+
+                        <td>@appointment.Phone</td>
+
+                        <td>@appointment.Email</td>
+
+                        <td>@appointment.Doctor</td>
+
+                        <td>
+                            @appointment.AppointmentDate.ToString("dd MMM yyyy")
+                        </td>
+
+                        <td>@appointment.AppointmentTime</td>
+
+                        <td>
+                            @if (appointment.Status == "Approved")
+                            {
+                                <span class="badge bg-success">Approved</span>
+                            }
+                            else if (appointment.Status == "Rejected")
+                            {
+                                <span class="badge bg-danger">Rejected</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning text-dark">Pending</span>
+                            }
+                        </td>
+
+                        <td>
+                            <div class="d-flex gap-2">
+
+                                <form asp-controller="Admin"
+                                      asp-action="UpdateStatus"
+                                      method="post">
+
+                                    @Html.AntiForgeryToken()
+
+                                    <input type="hidden"
+                                           name="id"
+                                           value="@appointment.Id" />
+
+                                    <button type="submit"
+                                            name="status"
+                                            value="Approved"
+                                            class="btn btn-success btn-sm">
+                                        Approve
+                                    </button>
+
+                                </form>
+
+                                <form asp-controller="Admin"
+                                      asp-action="UpdateStatus"
+                                      method="post">
+
+                                    @Html.AntiForgeryToken()
+
+                                    <input type="hidden"
+                                           name="id"
+                                           value="@appointment.Id" />
+
+                                    <button type="submit"
+                                            name="status"
+                                            value="Rejected"
+                                            class="btn btn-danger btn-sm">
+                                        Reject
+                                    </button>
+
+                                </form>
+
+                            </div>
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
+
+
+</div>
+i

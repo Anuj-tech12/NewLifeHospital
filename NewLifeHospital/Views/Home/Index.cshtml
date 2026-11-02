@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero">
+    <div class="hero-content">
+        <span class="badge">CARE FOR LITTLE SMILES</span>
+
+        <h1>
+            Your Child's Health,<br />
+            <span>Our Priority.</span>
+        </h1>
+
+        <p>
+            Compassionate care, expert doctors, and a healthier
+            tomorrow for your little ones.
+        </p>
+
+        <div class="hero-buttons">
+            <a asp-controller="Appointment"
+               asp-action="Index"
+               class="btn-primary-custom">
+                Book Appointment →
+            </a>
+
+            <a asp-controller="Home"
+               asp-action="About"
+               class="btn-secondary-custom">
+                Learn More
+            </a>
+        </div>
+
+        <div class="trust-info">
+            <div>
+                <strong>Expert Care</strong>
+                <span>For Every Child</span>
+            </div>
+
+            <div>
+                <strong>24/7 Support</strong>
+                <span>Here When Needed</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-visual">
+        <div class="image-circle">
+            <img src="https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?auto=format&fit=crop&w=900&q=85"
+                 alt="Healthcare professional caring for a child" />
+        </div>
+
+        <div class="floating-card">
+            <span class="heart-icon">♥</span>
+            <div>
+                <strong>Little Patients</strong>
+                <p>Big Care & Love</p>
+            </div>
+        </div>
+
+        <div class="decor decor-one"></div>
+        <div class="decor decor-two"></div>
+    </div>
+</section>
+
+<section class="services-section">
+    <div class="section-heading">
+        <span>WHAT WE OFFER</span>
+        <h2>Care That Makes a Difference</h2>
+        <p>Thoughtful healthcare for every stage of childhood.</p>
+    </div>
+
+    <div class="service-grid">
+        <article class="service-card">
+            <div class="service-icon">🩺</div>
+            <h3>Child Healthcare</h3>
+            <p>Healthcare focused on children's growth and well-being.</p>
+        </article>
+
+        <article class="service-card">
+            <div class="service-icon">👶</div>
+            <h3>Newborn Care</h3>
+            <p>Specialized attention for newborns and their families.</p>
+        </article>
+
+        <article class="service-card">
+            <div class="service-icon">🏥</div>
+            <h3>Hospital Services</h3>
+            <p>Healthcare services designed around young patients.</p>
+        </article>
+    </div>
+</section>
+```
