@@ -35,7 +35,55 @@ ViewData["Title"] = "Admin Dashboard";
 
 </div>
 
-<!-- All Appointments Table -->
+<!-- Search and Date Filter -->
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+
+        <form asp-controller="Admin" asp-action="Index" method="get">
+
+            <div class="row g-3">
+
+                <div class="col-md-5">
+                    <label class="form-label">Search Patient</label>
+
+                    <input type="text"
+                           name="search"
+                           value="@ViewBag.SearchTerm"
+                           class="form-control"
+                           placeholder="Enter patient name or phone number" />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Appointment Date</label>
+
+                    <input type="date"
+                           name="date"
+                           value="@ViewBag.SelectedDate"
+                           class="form-control" />
+                </div>
+
+                <div class="col-md-3 d-flex align-items-end gap-2">
+
+                    <button type="submit" class="btn btn-primary">
+                        Search
+                    </button>
+
+                    <a asp-controller="Admin"
+                       asp-action="Index"
+                       class="btn btn-secondary">
+                        Reset
+                    </a>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+<!-- Appointments Table -->
 <div class="card shadow-sm">
 
     <div class="card-header bg-primary text-white">
@@ -62,84 +110,87 @@ ViewData["Title"] = "Admin Dashboard";
 
             <tbody>
 
-                @foreach (var appointment in Model)
+                @if (Model.Any())
+                {
+                    @foreach (var appointment in Model)
+                    {
+                        <tr>
+                            <td>@appointment.Id</td>
+                            <td>@appointment.PatientName</td>
+                            <td>@appointment.Phone</td>
+                            <td>@appointment.Email</td>
+                            <td>@appointment.Doctor</td>
+
+                            <td>
+                                @appointment.AppointmentDate.ToString("dd MMM yyyy")
+                            </td>
+
+                            <td>@appointment.AppointmentTime</td>
+
+                            <td>
+                                @if (appointment.Status == "Approved")
+                                {
+                                    <span class="badge bg-success">Approved</span>
+                                }
+                                else if (appointment.Status == "Rejected")
+                                {
+                                    <span class="badge bg-danger">Rejected</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning text-dark">Pending</span>
+                                }
+                            </td>
+
+                            <td>
+                                <div class="d-flex gap-2">
+
+                                    <form asp-controller="Admin"
+                                          asp-action="UpdateStatus"
+                                          method="post">
+
+                                        @Html.AntiForgeryToken()
+
+                                        <input type="hidden" name="id" value="@appointment.Id" />
+
+                                        <button type="submit"
+                                                name="status"
+                                                value="Approved"
+                                                class="btn btn-success btn-sm">
+                                            Approve
+                                        </button>
+
+                                    </form>
+
+                                    <form asp-controller="Admin"
+                                          asp-action="UpdateStatus"
+                                          method="post">
+
+                                        @Html.AntiForgeryToken()
+
+                                        <input type="hidden" name="id" value="@appointment.Id" />
+
+                                        <button type="submit"
+                                                name="status"
+                                                value="Rejected"
+                                                class="btn btn-danger btn-sm">
+                                            Reject
+                                        </button>
+
+                                    </form>
+
+                                </div>
+                            </td>
+
+                        </tr>
+                    }
+                }
+                else
                 {
                     <tr>
-                        <td>@appointment.Id</td>
-
-                        <td>@appointment.PatientName</td>
-
-                        <td>@appointment.Phone</td>
-
-                        <td>@appointment.Email</td>
-
-                        <td>@appointment.Doctor</td>
-
-                        <td>
-                            @appointment.AppointmentDate.ToString("dd MMM yyyy")
+                        <td colspan="9" class="text-center text-danger">
+                            No appointments found.
                         </td>
-
-                        <td>@appointment.AppointmentTime</td>
-
-                        <td>
-                            @if (appointment.Status == "Approved")
-                            {
-                                <span class="badge bg-success">Approved</span>
-                            }
-                            else if (appointment.Status == "Rejected")
-                            {
-                                <span class="badge bg-danger">Rejected</span>
-                            }
-                            else
-                            {
-                                <span class="badge bg-warning text-dark">Pending</span>
-                            }
-                        </td>
-
-                        <td>
-                            <div class="d-flex gap-2">
-
-                                <form asp-controller="Admin"
-                                      asp-action="UpdateStatus"
-                                      method="post">
-
-                                    @Html.AntiForgeryToken()
-
-                                    <input type="hidden"
-                                           name="id"
-                                           value="@appointment.Id" />
-
-                                    <button type="submit"
-                                            name="status"
-                                            value="Approved"
-                                            class="btn btn-success btn-sm">
-                                        Approve
-                                    </button>
-
-                                </form>
-
-                                <form asp-controller="Admin"
-                                      asp-action="UpdateStatus"
-                                      method="post">
-
-                                    @Html.AntiForgeryToken()
-
-                                    <input type="hidden"
-                                           name="id"
-                                           value="@appointment.Id" />
-
-                                    <button type="submit"
-                                            name="status"
-                                            value="Rejected"
-                                            class="btn btn-danger btn-sm">
-                                        Reject
-                                    </button>
-
-                                </form>
-
-                            </div>
-                        </td>
-
                     </tr>
                 }
 
@@ -150,6 +201,4 @@ ViewData["Title"] = "Admin Dashboard";
     </div>
 </div>
 
-
 </div>
-i

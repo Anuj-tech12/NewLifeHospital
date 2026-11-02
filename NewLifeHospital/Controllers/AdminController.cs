@@ -8,17 +8,34 @@ namespace NewLifeHospital.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-
     public AdminController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? search, DateTime? date)
         {
-            var appointments = await _context.Appointments
+            var query = _context.Appointments.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                query = query.Where(a =>
+                    a.PatientName.Contains(search) ||
+                    a.Phone.Contains(search));
+            }
+
+            if (date.HasValue)
+            {
+                query = query.Where(a =>
+                    a.AppointmentDate.Date == date.Value.Date);
+            }
+
+            var appointments = await query
                 .OrderByDescending(a => a.CreatedAt)
                 .ToListAsync();
+
+            ViewBag.SearchTerm = search;
+            ViewBag.SelectedDate = date?.ToString("yyyy-MM-dd");
 
             return View(appointments);
         }
