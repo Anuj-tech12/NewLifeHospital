@@ -1,0 +1,98 @@
+﻿@model NewLifeHospital.Models.Appointment
+
+@{
+    ViewData["Title"] = "Patient Details";
+}
+
+<div class="container py-5">
+
+    
+    <div class="card shadow">
+
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">Patient Appointment Details</h3>
+        </div>
+
+        <div class="card-body">
+
+            <h5 class="text-primary mb-3">Patient Information</h5>
+
+            <table class="table table-bordered">
+
+                <tr>
+                    <th>Appointment ID</th>
+                    <td>@Model.Id</td>
+                </tr>
+
+                <tr>
+                    <th>Patient Name</th>
+                    <td>@Model.PatientName</td>
+                </tr>
+
+                <tr>
+                    <th>Phone Number</th>
+                    <td>@Model.Phone</td>
+                </tr>
+
+                <tr>
+                    <th>Email</th>
+                    <td>@Model.Email</td>
+                </tr>
+
+                <tr>
+                    <th>Doctor</th>
+                    <td>@Model.Doctor</td>
+                </tr>
+
+                <tr>
+                    <th>Appointment Date</th>
+                    <td>@Model.AppointmentDate.ToString("dd MMMM yyyy")</td>
+                </tr>
+
+                <tr>
+                    <th>Appointment Time</th>
+                    <td>@Model.AppointmentTime</td>
+                </tr>
+
+                <tr>
+                    <th>Message</th>
+                    <td>@Model.Message</td>
+                </tr>
+
+                <tr>
+                    <th>Status</th>
+                    <td>
+                        @if (Model.Status == "Approved")
+                        {
+                            <span class="badge bg-success">Approved</span>
+                        }
+                        else if (Model.Status == "Rejected")
+                        {
+                            <span class="badge bg-danger">Rejected</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-warning text-dark">Pending</span>
+                        }
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Booking Created</th>
+                    <td>@Model.CreatedAt.ToString("dd MMMM yyyy hh:mm tt")</td>
+                </tr>
+
+            </table>
+
+            <a asp-controller="Admin"
+               asp-action="Index"
+               class="btn btn-secondary mt-3">
+                Back to Dashboard
+            </a>
+
+        </div>
+
+    </div>
+    
+
+</div>
